@@ -52,7 +52,7 @@ sub MAIN(*@module, Bool :$graph=False, Bool :$v=False)  {
             my $depends = False;
             %deps{$module} = Array.new;
             for $data.lines -> $line {
-                say "# $module|$line" if $v;
+                say "# $module|$line" if $v or $line.starts-with('!');
                 $depends = True if $line.starts-with('Depends: ');
                 next unless $depends;
                 next unless $line ~~ /^ \d /;
