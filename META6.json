@@ -6,6 +6,9 @@
   "depends" : [
     "Uxmal"
   ],
+  "provides" : [
+    "App::Zef-Deps", "lib/App/Zef-Deps.rakumod"
+  ],
   "description" : "Tool to show dependencies on raku modules given by zef",
   "license" : "Artistic-2.0",
   "name" : "App::Zef-Deps",
