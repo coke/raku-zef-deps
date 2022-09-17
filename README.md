@@ -34,6 +34,8 @@ The indent level shows the nesting of dependencies. So in this example, App::Cal
 on Test::Differences, which in turn depends on Data::Dump.  Both Algorithm::Diff and
 Text::Diff depend on Test.
 
+Multiple packages can be specified on the command line.
+
 # Options
 
 `-graph` generates a PNG via `dot`. To use this option, you must install the optional
