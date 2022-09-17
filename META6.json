@@ -17,5 +17,5 @@
   "source-url" : "git://github.com/coke/raku-zef-deps.git",
   "tags" : [ ],
   "test-depends" : [ ],
-  "version" : "0.9.0"
+  "version" : "0.9.1"
 }
