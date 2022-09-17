@@ -1,57 +1,33 @@
 unit package App::Zef-Deps;
 
-our $lock = Lock.new;
-our $batch = 1;
 our $indent = 4;
 
 our sub MAIN-handler(@module, :$graph) is export {
+    use Zef;
+    use Zef::Client;
+    use Zef::Config;
+
+    my $chosen-config-file = %*ENV<ZEF_CONFIG_PATH> // Zef::Config::guess-path();
+    my $config = Zef::Config::parse-file($chosen-config-file);
+
+    my $zef = Zef::Client.new(:$config);
 
     $*OUT.out-buffer = False;
-
-    run(<zef --help>, :out, :err) or die "Can't find zef; is your PATH correct?";
-
     my %deps;
-
     my @queue = @module;
 
     loop {
         last unless @queue;
         my @copy = @queue.unique;
         @queue = Array.new;
-        my %output;
-        @copy.race(:$batch).map: -> $module {
+        for @copy -> $module {
             next if %deps{$module}:exists;
 
             say "# PACKAGE: $module";
-            react {
-                my $proc = Proc::Async.new: ['zef', 'info', '--verbose', $module];
-
-                whenever $proc.stdout.lines {
-                    $lock.protect: {
-                        %output{$module} ~= "$_\n";
-                    }
-                }
-                whenever $proc.start {
-                    done
-                }
-            }
-        }
-
-        for %output.kv -> $module, $data {
-            my $depends = False;
-            %deps{$module} = Array.new;
-            for $data.lines -> $line {
-                $depends = True if $line.starts-with('Depends: ');
-                next unless $depends;
-                next unless $line ~~ /^ \d /;
-
-                my @chunks = $line.split('|');
-                die "oops, I missed some zef format" unless @chunks.elems == 3;
-
-                my $dep = @chunks[1].trim;
-                %deps{$module}.push: $dep;
-                @queue.push: $dep unless %deps{$dep}:exists;
-            }
+            my $candidates = $zef.find-candidates($module).head;
+            my $deps = $zef.list-dependencies($candidates).map(*.identity).cache;
+            %deps{$module} = $deps;
+            @queue.push: |$deps;
         }
     }
 
