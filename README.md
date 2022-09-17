@@ -17,12 +17,12 @@ dependencies, direct and indirect.
 # PACKAGE: Algorithm::Diff
 # PACKAGE: Text::Tabs
 # PACKAGE: Test
-App::Cal ✓
+App::Cal
     Terminal::ANSIColor
-    Test::Differences ✓
+    Test::Differences
         Data::Dump
-        Text::Diff ✓
-            Algorithm::Diff ✓
+        Text::Diff
+            Algorithm::Diff
                 Test
             Test
             Text::Tabs

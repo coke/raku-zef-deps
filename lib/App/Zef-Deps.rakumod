@@ -11,7 +11,6 @@ our sub MAIN-handler(@module, :$graph, :$v) is export {
     run(<zef --help>, :out, :err) or die "Can't find zef; is your PATH correct?";
 
     my %deps;
-    my %installed;
 
     my @queue = @module;
 
@@ -51,9 +50,7 @@ our sub MAIN-handler(@module, :$graph, :$v) is export {
                 die "oops, I missed some zef format" unless @chunks.elems == 3;
 
                 my $dep = @chunks[1].trim;
-                my $installed = @chunks[2].trim;
                 %deps{$module}.push: $dep;
-                %installed{$module} = $installed;
                 @queue.push: $dep unless %deps{$dep}:exists;
             }
         }
@@ -64,8 +61,6 @@ our sub MAIN-handler(@module, :$graph, :$v) is export {
     sub show-deps($module, %deps, $depth=0) {
         print ' ' x $depth * $indent;
         print $module;
-        print ' ';
-        print %installed{$module} // '';
         if %seen{$module} {
             if %deps{$module}.elems {
                  print ' ...';
