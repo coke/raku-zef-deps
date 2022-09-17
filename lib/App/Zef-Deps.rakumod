@@ -4,7 +4,7 @@ our $lock = Lock.new;
 our $batch = 1;
 our $indent = 4;
 
-our sub MAIN-handler(@module, :$graph, :$v) is export {
+our sub MAIN-handler(@module, :$graph) is export {
 
     $*OUT.out-buffer = False;
 
@@ -41,7 +41,6 @@ our sub MAIN-handler(@module, :$graph, :$v) is export {
             my $depends = False;
             %deps{$module} = Array.new;
             for $data.lines -> $line {
-                say "# $module|$line" if $v or $line.starts-with('!');
                 $depends = True if $line.starts-with('Depends: ');
                 next unless $depends;
                 next unless $line ~~ /^ \d /;

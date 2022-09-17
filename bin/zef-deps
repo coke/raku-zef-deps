@@ -6,7 +6,7 @@ Use zef tool to identify all (nested) dependencies for a named module
 
 =end comment
 
-sub MAIN(*@module, Bool :$graph=False, Bool :$v=False)  {
+sub MAIN(*@module, Bool :$graph=False)  {
     use App::Zef-Deps;
-    MAIN-handler(@module, :$graph, :$v);
+    MAIN-handler(@module, :$graph);
 }
