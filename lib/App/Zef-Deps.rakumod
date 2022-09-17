@@ -1,7 +1,5 @@
 unit package App::Zef-Deps;
 
-use Uxmal;
-
 our $lock = Lock.new;
 our $batch = 1;
 our $indent = 4;
@@ -85,6 +83,15 @@ our sub MAIN-handler(@module, :$graph, :$v) is export {
     }
 
     if $graph {
+        # Can we load module at runtime at all?
+        if (try require Uxmal) === Nil {
+            say "Unable to load optional module 'Uxmal', please install with zef to use this feature.";
+            exit 1;
+        }
+
+        # ... If so, load the subs we need
+        require Uxmal <&attempt-full-dot-gen &depends-tree>;
+
         my @uxmal-deps;
         for %deps.kv -> $k, $v {
             @uxmal-deps.push: { :name($k), :depends($v) };
