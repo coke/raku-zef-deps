@@ -14,12 +14,12 @@ BEGIN {
     }
 }
 
-multi MAIN('.', Bool :$graph=False)  {
+multi MAIN('.', Bool :$png=False)  {
     use JSON::Fast;
     my @depends = |(from-json "META6.json".IO.slurp)<depends>;
-    MAIN-handler(@depends, :$graph);
+    MAIN-handler(@depends, :$png);
 }
 
-multi MAIN(*@module, Bool :$graph=False)  {
-    MAIN-handler(@module, :$graph);
+multi MAIN(*@module, Bool :$png=False)  {
+    MAIN-handler(@module, :$png);
 }

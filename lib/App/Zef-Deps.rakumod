@@ -2,7 +2,7 @@ unit package App::Zef-Deps;
 
 our $indent = 4;
 
-our sub MAIN-handler(@module, :$graph) is export {
+our sub MAIN-handler(@module, :$png) is export {
     use Zef;
     use Zef::Client;
     use Zef::Config;
@@ -51,7 +51,7 @@ our sub MAIN-handler(@module, :$graph) is export {
         }
     }
 
-    if $graph {
+    if $png {
         # Can we load module at runtime at all?
         if (try require Uxmal) === Nil {
             say "Unable to load optional module 'Uxmal', please install it to use this feature.";

@@ -41,8 +41,8 @@ If a single name of `.` is specified, `zef-deps` will instead read the current
 
 # Options
 
-`-graph` generates a PNG via `dot`. To use this option, you must install the optional
-module `Uxmal`. When run with this option, a file is generated in a temp
+`--png` generates a `png` file showing dependencies using `dot`. To use this option,
+you must install the optional module `Uxmal`. When run with this option, a file is generated in a temp
 directory and the path to the file is printed as the only non-debug output.
 
 # Environment variables
