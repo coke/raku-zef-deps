@@ -28,7 +28,7 @@ App::Cal
             Text::Tabs
 ```
 
-Any lines appearing with a leading `#` are diagnostic, to show progress is occurring.
+Any lines with a leading `#` are sent to $*ERR, to show progress.
 
 The indent level shows the nesting of dependencies. So in this example, App::Cal depends
 on Test::Differences, which in turn depends on Data::Dump.  Both Algorithm::Diff and

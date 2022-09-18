@@ -12,7 +12,6 @@ our sub MAIN-handler(@module, :$graph) is export {
 
     my $zef = Zef::Client.new(:$config);
 
-    $*OUT.out-buffer = False;
     my %deps;
     my @queue = @module;
 
@@ -23,7 +22,7 @@ our sub MAIN-handler(@module, :$graph) is export {
         for @copy -> $module {
             next if %deps{$module}:exists;
 
-            say "# PACKAGE: $module";
+            note "# PACKAGE: $module";
             my $candidates = $zef.find-candidates($module).head;
             my $deps = $zef.list-dependencies($candidates).map(*.identity).cache;
             %deps{$module} = $deps;
