@@ -44,3 +44,9 @@ If a single name of `.` is specified, `zef-deps` will instead read the current
 `-graph` generates a PNG via `dot`. To use this option, you must install the optional
 module `Uxmal` using zef. When run with this option, a file is generated in a temp
 directory and the path to the file is printed as the only non-debug output.
+
+# Environment variables
+
+## ZEF_DEPS_INDENT
+
+Indenting defaults to 4 spaces but can be overridden via this environment variable.
