@@ -54,7 +54,7 @@ our sub MAIN-handler(@module, :$graph) is export {
     if $graph {
         # Can we load module at runtime at all?
         if (try require Uxmal) === Nil {
-            say "Unable to load optional module 'Uxmal', please install with zef to use this feature.";
+            say "Unable to load optional module 'Uxmal', please install it to use this feature.";
             exit 1;
         }
 
