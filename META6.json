@@ -4,7 +4,7 @@
   ],
   "auth": "zef:coke",
   "depends" : [
-    "Zef", "Zef::Client", "Zef::Config"
+    "Zef", "Zef::Client", "Zef::Config", "JSON::Fast"
   ],
   "provides" : {
     "App::Zef-Deps" : "lib/App/Zef-Deps.rakumod"
@@ -17,5 +17,5 @@
   "source-url" : "git://github.com/coke/raku-zef-deps.git",
   "tags" : [ ],
   "test-depends" : [ ],
-  "version" : "0.9.1"
+  "version" : "0.9.2"
 }
