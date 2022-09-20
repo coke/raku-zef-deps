@@ -7,6 +7,8 @@ our sub MAIN-handler(@module, :$png) is export {
     use Zef::Client;
     use Zef::Config;
 
+    $*ERR.out-buffer = False;
+
     my $chosen-config-file = %*ENV<ZEF_CONFIG_PATH> // Zef::Config::guess-path();
     my $config = Zef::Config::parse-file($chosen-config-file);
 
