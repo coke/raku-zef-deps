@@ -11,13 +11,13 @@ my $out = run(|@command, '.', :out, :err).out.slurp(:close);
 my $expected = q:to/OUT/;
 JSON::Fast
     Test
-Zef
+Zef::Client:ver<0.14.2+>
     NativeCall:ver<6.c+>
     Test:ver<6.c+>
-Zef::Client
+Zef::Config:ver<0.14.2+>
     NativeCall:ver<6.c+>
     Test:ver<6.c+>
-Zef::Config
+Zef:ver<0.14.2+>
     NativeCall:ver<6.c+>
     Test:ver<6.c+>
 OUT
