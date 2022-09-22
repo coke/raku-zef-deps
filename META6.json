@@ -4,7 +4,10 @@
   ],
   "auth": "zef:coke",
   "depends" : [
-    "Zef", "Zef::Client", "Zef::Config", "JSON::Fast"
+    "Zef:ver<0.14.2+>",
+    "Zef::Client:ver<0.14.2+>",
+    "Zef::Config:ver<0.14.2+>",
+    "JSON::Fast"
   ],
   "test-depends": [
     "Test"
@@ -20,5 +23,5 @@
   "source-url" : "git://github.com/coke/raku-zef-deps.git",
   "tags" : [ ],
   "test-depends" : [ ],
-  "version" : "0.9.3"
+  "version" : "0.9.4"
 }
