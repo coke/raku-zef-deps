@@ -20,15 +20,13 @@ App::Cal
             Text::Tabs
 ```
 
-Any lines with a leading `#` are sent to $*ERR, to show progress.
-
-The indent level shows the nesting of dependencies. So in this example, App::Cal depends
-on Test::Differences, which in turn depends on Data::Dump.  Both Algorithm::Diff and
-Text::Diff depend on Test.
+The indent level shows the nesting of dependencies. So in this example, `App::Cal` depends
+on `Test::Differences`, which in turn depends on `Data::Dump`.  Both `Algorithm::Diff` and
+`Text::Diff` depend on `Test`.
 
 Multiple packages can be specified on the command line.
 
-If a single name of `.` is specified, `zef-deps` will instead read the current
+If a single name of `.` is specified, `zef-deps` will instead read the local
 `META6.json` and use the `depends` attribute as the list of packages.
 
 # Options
