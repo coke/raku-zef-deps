@@ -9,14 +9,6 @@ dependencies, direct and indirect.
 
 ```
 % zef-deps App::Cal
-# PACKAGE: App::Cal
-# PACKAGE: Terminal::ANSIColor
-# PACKAGE: Test::Differences
-# PACKAGE: Data::Dump
-# PACKAGE: Text::Diff
-# PACKAGE: Algorithm::Diff
-# PACKAGE: Text::Tabs
-# PACKAGE: Test
 App::Cal
     Terminal::ANSIColor
     Test::Differences

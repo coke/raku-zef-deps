@@ -24,7 +24,6 @@ our sub MAIN-handler(@module, :$png) is export {
         for @copy -> $module {
             next if %deps{$module}:exists;
 
-            note "# PACKAGE: $module";
             my $candidates = $zef.find-candidates($module).head;
             my $deps = $zef.list-dependencies($candidates).map(*.identity).cache;
             %deps{$module} = $deps;
