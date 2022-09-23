@@ -22,7 +22,6 @@ our sub MAIN-handler(@module, :$png) is export {
         my @copy = @queue.unique;
         @queue = Array.new;
         for @copy -> $module {
-            say "MODULE: $module";
             next if %deps{$module}:exists;
 
             # One of the dependencies may be a native library that
