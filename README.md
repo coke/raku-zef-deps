@@ -39,4 +39,5 @@ directory and the path to the file is printed as the only non-debug output.
 
 ## ZEF_DEPS_INDENT
 
-Indenting defaults to 4 spaces but can be overridden via this environment variable.
+Indenting defaults to 4 spaces but can be overridden by setting this environment variable to
+the number of desired spaces.
