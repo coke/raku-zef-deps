@@ -2,7 +2,7 @@ unit package App::Zef-Deps;
 
 our $indent = 4;
 
-our sub MAIN-handler(@module, :$png) is export {
+our sub MAIN-handler(@module, :$png, :$json) is export {
     use Zef;
     use Zef::Client;
     use Zef::Config;
@@ -56,6 +56,20 @@ our sub MAIN-handler(@module, :$png) is export {
         }
     }
 
+    # Extract data suitable for JSON dump
+    sub model-for-json($module, %deps) {
+        # Get hash of attributes of module using zef
+        # Skip blank attributes and from eq "Perl6"
+        use Zef::Identity;
+        my %obj = identity2hash($module).hash.pairs.grep(*.value.chars);
+        %obj<from>:delete if %obj<from> eq "Perl6";
+        for @(%deps{$module}).sort.unique -> $dep {
+            next unless $dep;
+            %obj<deps>.push: model-for-json($dep, %deps);
+        }
+        return %obj;
+    }
+
     if $png {
         # Can we load module at runtime at all?
         if (try require Uxmal) === Nil {
@@ -72,6 +86,11 @@ our sub MAIN-handler(@module, :$png) is export {
         }
 
         say attempt-full-dot-gen(depends-tree(@uxmal-deps));
+    } elsif $json {
+        use JSON::Fast;
+        my @deps;
+        @deps.push: model-for-json($_, %deps) for @module;
+        say to-json @deps, :pretty, :sorted-keys;
     } else {
         for @module.sort -> $module {
             show-deps($module, %deps);
