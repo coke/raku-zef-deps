@@ -29,7 +29,11 @@ Multiple packages can be specified on the command line.
 If a single name of `.` is specified, `zef-deps` will instead read the local
 `META6.json` and use the `depends` attribute as the list of packages.
 
+In the default textual output, repeated dependencies anywhere in the hierarchy are replaced with `...`.
+
 # Options
+
+`--json` generates JSON output for the dependencies, breaking out attributes like
 
 `--png` generates a `png` file showing dependencies using `dot`. To use this option,
 you must install the optional module `Uxmal`. When run with this option, a file is generated in a temp
