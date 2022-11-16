@@ -1,6 +1,9 @@
 unit package App::Zef-Deps;
 
 our $indent = 4;
+if %*ENV<ZEF_DEPS_INDENT> {
+    $indent = %*ENV<ZEF_DEPS_INDENT>.Int;
+}
 
 our sub MAIN-handler(@module, :$png, :$json) is export {
     use Zef;
