@@ -5,6 +5,12 @@ if %*ENV<ZEF_DEPS_INDENT> {
     $indent = %*ENV<ZEF_DEPS_INDENT>.Int;
 }
 
+our sub MAIN-handler-dot(:$png, :$json) is export {
+    use JSON::Fast;
+    my @depends = |(from-json "META6.json".IO.slurp)<depends>;
+    MAIN-handler(@depends, :$png, :$json);
+}
+
 our sub MAIN-handler(@module, :$png, :$json) is export {
     use Zef;
     use Zef::Client;

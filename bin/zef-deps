@@ -9,9 +9,7 @@ Use zef tool to identify all (nested) dependencies for a named module
 use App::Zef-Deps;
 
 multi MAIN('.', Bool :$png=False, Bool :$json=False)  {
-    use JSON::Fast;
-    my @depends = |(from-json "META6.json".IO.slurp)<depends>;
-    MAIN-handler(@depends, :$png, :$json);
+    MAIN-handler-dot(:$png, :$json);
 }
 
 multi MAIN(*@module, Bool :$png=False, Bool :$json=False)  {
