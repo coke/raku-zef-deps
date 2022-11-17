@@ -1,9 +1,6 @@
 unit package App::Zef-Deps;
 
 our $indent = 4;
-if %*ENV<ZEF_DEPS_INDENT> {
-    $indent = %*ENV<ZEF_DEPS_INDENT>.Int;
-}
 
 our sub MAIN-handler-dot(:$png, :$json) is export {
     use JSON::Fast;
@@ -15,6 +12,10 @@ our sub MAIN-handler(@module, :$png, :$json) is export {
     use Zef;
     use Zef::Client;
     use Zef::Config;
+
+    if %*ENV<ZEF_DEPS_INDENT> {
+        $indent = %*ENV<ZEF_DEPS_INDENT>.Int;
+    }
 
     $*ERR.out-buffer = False;
 
@@ -47,22 +48,24 @@ our sub MAIN-handler(@module, :$png, :$json) is export {
     # Dump the dependencies
     my %seen;
     sub show-deps($module, %deps, $depth=0) {
-        print ' ' x $depth * $indent;
-        print $module;
+        my $output = '';
+        $output ~= ' ' x $depth * $indent;
+        $output ~= $module;
         if %seen{$module} {
             if %deps{$module}.elems {
-                 print ' ...';
+                 $output ~= " ...\n";
             }
-            say '';
-            return;
+            $output ~= "\n";
+            return $output;
         }
         %seen{$module} = True;
 
-        say '';
+        $output ~= "\n";
         for @(%deps{$module}).sort.unique -> $dep {
             next unless $dep;
-            show-deps($dep, %deps, $depth+1);
+            $output ~= show-deps($dep, %deps, $depth+1);
         }
+        return $output
     }
 
     # Extract data suitable for JSON dump
@@ -94,15 +97,17 @@ our sub MAIN-handler(@module, :$png, :$json) is export {
             @uxmal-deps.push: { :name($k), :depends($v) };
         }
 
-        say attempt-full-dot-gen(depends-tree(@uxmal-deps));
+        return attempt-full-dot-gen(depends-tree(@uxmal-deps));
     } elsif $json {
         use JSON::Fast;
         my @deps;
         @deps.push: model-for-json($_, %deps) for @module;
-        say to-json @deps, :pretty, :sorted-keys;
+        return to-json @deps, :pretty, :sorted-keys;
     } else {
+        my $output = '';
         for @module.sort -> $module {
-            show-deps($module, %deps);
+            $output ~= show-deps($module, %deps);
         }
+        return $output;
     }
 }

@@ -1,14 +1,13 @@
 #!/usr/bin/env raku
 
 use Test;
+use App::Zef-Deps;
 
 plan 1;
 
-my @command = <<$*EXECUTABLE -Ilib bin/zef-deps>>;
-
 %*ENV<ZEF_DEPS_INDENT>=10;
 
-my $out = run(|@command, 'zef', :out, :err).out.slurp(:close);
+my $out = MAIN-handler(['zef',]);
 
 my $expected = q:to/OUT/;
 zef

@@ -1,12 +1,11 @@
 #!/usr/bin/env raku
 
 use Test;
+use App::Zef-Deps;
 
 plan 1;
 
-my @command = <<$*EXECUTABLE -Ilib bin/zef-deps --json>>;
-
-my $out = run(|@command, 'zef', :out, :err).out.slurp(:close);
+my $out = MAIN-handler(['zef',], :json);
 
 my $expected = q:to/OUT/;
 [
@@ -26,4 +25,4 @@ my $expected = q:to/OUT/;
 ]
 OUT
 
-is $out, $expected, 'zef dependencies as json';
+is $out, $expected.chomp, 'zef dependencies as json';
