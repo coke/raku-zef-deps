@@ -1,26 +1,30 @@
 {
-  "authors" : [
+  "auth": "zef:coke",
+  "authors": [
     "Will Coleda"
   ],
-  "auth": "zef:coke",
-  "depends" : [
+  "build-depends": [
+  ],
+  "depends": [
     "Zef:ver<0.14.2+>",
     "Zef::Client:ver<0.14.2+>",
     "Zef::Config:ver<0.14.2+>",
     "JSON::Fast"
   ],
+  "description": "Tool to show dependencies on raku modules given by zef",
+  "license": "Artistic-2.0",
+  "name": "App::Zef-Deps",
+  "perl": "6",
+  "provides": {
+    "App::Zef-Deps": "lib/App/Zef-Deps.rakumod"
+  },
+  "resources": [
+  ],
+  "source-url": "git://github.com/coke/raku-zef-deps.git",
+  "tags": [
+  ],
   "test-depends": [
     "Test"
   ],
-  "provides" : {
-    "App::Zef-Deps" : "lib/App/Zef-Deps.rakumod"
-  },
-  "description" : "Tool to show dependencies on raku modules given by zef",
-  "license" : "Artistic-2.0",
-  "name" : "App::Zef-Deps",
-  "perl" : "6",
-  "resources" : [ ],
-  "source-url" : "git://github.com/coke/raku-zef-deps.git",
-  "tags" : [ ],
-  "version" : "0.9.6"
+  "version": "0.9.6"
 }
