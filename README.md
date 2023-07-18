@@ -33,7 +33,7 @@ In the default textual output, repeated dependencies anywhere in the hierarchy a
 
 # Options
 
-`--json` generates JSON output for the dependencies, breaking out attributes like
+`--json` generates JSON output for the dependencies.
 
 `--png` generates a `png` file showing dependencies using `dot`. To use this option,
 you must install the optional module `Uxmal`. When run with this option, a file is generated in a temp
