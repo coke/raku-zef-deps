@@ -3,7 +3,11 @@
 use Test;
 use App::Zef-Deps;
 
-plan 2;
+if (try require Uxmal) === Nil {
+    plan :skip-all<Optional module needed for this feature not installed.>;
+} else {
+    plan 2;
+}
 
 my $out = MAIN-handler(['zef',], :png);
 
