@@ -2,13 +2,14 @@ unit package App::Zef-Deps;
 
 our $indent = 4;
 
-our sub MAIN-handler-dot(:$png, :$json) is export {
+our sub MAIN-handler-dot(:$png, :$json, :$inverse) is export {
     use JSON::Fast;
+    say "eel";
     my @depends = |(from-json "META6.json".IO.slurp)<depends>;
-    MAIN-handler(@depends, :$png, :$json);
+    MAIN-handler(@depends, :$png, :$json, :$inverse);
 }
 
-our sub MAIN-handler(@module, :$png, :$json) is export {
+our sub MAIN-handler(@module, :$png, :$json, :$inverse) is export {
     use Zef;
     use Zef::Client;
     use Zef::Config;
@@ -27,21 +28,35 @@ our sub MAIN-handler(@module, :$png, :$json) is export {
     my %deps;
     my @queue = @module;
 
-    loop {
-        last unless @queue;
-        my @copy = @queue.unique;
-        @queue = Array.new;
-        for @copy -> $module {
-            next if %deps{$module}:exists;
-
-            # One of the dependencies may be a native library that
-            # zef can't report on
-            my $candidates = try $zef.find-candidates($module).head;
-            next unless $candidates;
-
-            my $deps = $zef.list-dependencies($candidates).map(*.identity).cache;
-            %deps{$module} = $deps;
-            @queue.push: |$deps;
+    if $inverse {
+        die 'Can only specify a single distribution with --inverse' unless @module.elems == 1;
+        
+        note "This may be slow";
+        note "Iterate over every thing in `zef list`";
+        note "and find all those items that depend directly on the given module";
+        my $module = @module[0];
+        my @parents = $zef.list-available.map(*.dist).grep( $module (elem) *.depends).map(*.identity).unique;
+        for @parents -> $parent {
+            %deps{$parent} = [ $module, ];
+        }
+        @module = @parents; 
+    } else {
+        loop {
+            last unless @queue;
+            my @copy = @queue.unique;
+            @queue = Array.new;
+            for @copy -> $module {
+                next if %deps{$module}:exists;
+    
+                # One of the dependencies may be a native library that
+                # zef can't report on
+                my $candidates = try $zef.find-candidates($module).head;
+                next unless $candidates;
+    
+                my $deps = $zef.list-dependencies($candidates).map(*.identity).cache;
+                %deps{$module} = $deps;
+                @queue.push: |$deps;
+            }
         }
     }
 

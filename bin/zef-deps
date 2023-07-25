@@ -8,13 +8,13 @@ Use zef tool to identify all (nested) dependencies for a named module
 
 use App::Zef-Deps;
 
-multi MAIN('.', Bool :$png=False, Bool :$json=False)  {
-    print MAIN-handler-dot(:$png, :$json);
+multi MAIN('.', Bool :$png=False, Bool :$json=False, Bool :$inverse=False)  {
+    print MAIN-handler-dot(:$png, :$json, :$inverse);
     print "\n" if $json | $png;
 }
 
-multi MAIN(*@module, Bool :$png=False, Bool :$json=False)  {
-    print MAIN-handler(@module, :$png, :$json);
+multi MAIN(*@module, Bool :$png=False, Bool :$json=False, Bool :$inverse=False)  {
+    print MAIN-handler(@module, :$png, :$json, :$inverse);
     print "\n" if $json | $png;
 }
 
