@@ -6,9 +6,9 @@
   "build-depends": [
   ],
   "depends": [
-    "Zef:ver<0.14.2+>",
-    "Zef::Client:ver<0.14.2+>",
-    "Zef::Config:ver<0.14.2+>",
+    "Zef:ver<0.19+>",
+    "Zef::Client:ver<0.19+>",
+    "Zef::Config:ver<0.19+>",
     "JSON::Fast"
   ],
   "description": "Tool to show dependencies on raku modules given by zef",

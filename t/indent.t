@@ -11,8 +11,8 @@ my $out = MAIN-handler(['zef',]);
 
 my $expected = q:to/OUT/;
 zef
-          NativeCall:ver<6.c+>
-          Test:ver<6.c+>
+          NativeCall
+          Test
 OUT
 
 is $out, $expected, 'zef dependencies, indented';

@@ -13,13 +13,11 @@ my $expected = q:to/OUT/;
     "deps": [
       {
         "from": "Raku",
-        "name": "NativeCall",
-        "ver": "6.c+"
+        "name": "NativeCall"
       },
       {
         "from": "Raku",
-        "name": "Test",
-        "ver": "6.c+"
+        "name": "Test"
       }
     ],
     "from": "Raku",
