@@ -1,6 +1,7 @@
 Revision history for App::Zef-Deps
 
 {{$NEXT}}
+    - Prefer hash format for META6.json deps
 
 0.9.8  2023-09-18T13:18:41-04:00
     - Update zef version, adjust expected zef output
