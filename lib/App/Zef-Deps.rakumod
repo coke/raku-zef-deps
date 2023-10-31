@@ -30,7 +30,7 @@ our sub MAIN-handler(@module, :$png, :$json, :$inverse) is export {
 
     if $inverse {
         die 'Can only specify a single distribution with --inverse' unless @module.elems == 1;
-        
+
         note "This may be slow";
         note "Iterate over every thing in `zef list`";
         note "and find all those items that depend directly on the given module";
@@ -39,7 +39,7 @@ our sub MAIN-handler(@module, :$png, :$json, :$inverse) is export {
         for @parents -> $parent {
             %deps{$parent} = [ $module, ];
         }
-        @module = @parents; 
+        @module = @parents;
     } else {
         loop {
             last unless @queue;
@@ -47,12 +47,12 @@ our sub MAIN-handler(@module, :$png, :$json, :$inverse) is export {
             @queue = Array.new;
             for @copy -> $module {
                 next if %deps{$module}:exists;
-    
+
                 # One of the dependencies may be a native library that
                 # zef can't report on
                 my $candidates = try $zef.find-candidates($module).head;
                 next unless $candidates;
-    
+
                 my $deps = $zef.list-dependencies($candidates).map(*.identity).cache;
                 %deps{$module} = $deps;
                 @queue.push: |$deps;
