@@ -6,21 +6,10 @@
   "build-depends": [
   ],
   "depends": [
-    {
-      "name": "Zef",
-      "version": "0.19+"
-    },
-    {
-      "name": "Zef::Client",
-      "version": "0.19+"
-    },
-    {
-      "name": "Zef::Config",
-      "version": "0.19+"
-    },
-    {
-      "name": "JSON::Fast"
-    }
+    "Zef:ver<0.19+>",
+    "Zef::Client:ver<0.19+>",
+    "Zef::Config:ver<0.19+>",
+    "JSON::Fast"
   ],
   "description": "Tool to show dependencies on raku modules given by zef",
   "license": "Artistic-2.0",
