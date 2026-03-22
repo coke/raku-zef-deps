@@ -10,13 +10,13 @@ my $out = MAIN-handler-dot();
 my $expected = q:to/OUT/;
 JSON::Fast
     Test
-Zef::Client:ver<0.19+>
+Zef::Client:ver<1.0.0+>
     NativeCall
     Test
-Zef::Config:ver<0.19+>
+Zef::Config:ver<1.0.0+>
     NativeCall
     Test
-Zef:ver<0.19+>
+Zef:ver<1.0.0+>
     NativeCall
     Test
 OUT
